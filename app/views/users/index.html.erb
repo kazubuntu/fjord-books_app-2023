@@ -1,2 +1,14 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<h1><%= t('views.common.title_index', name: User.model_name.human) %></h1>
+
+<div id="books" class="index-items">
+  <% @users.each do |user| %>
+    <div class="index-item">
+      <%= render user %>
+      <p>
+        <%= link_to t('views.common.show', name: User.model_name.human), user %>
+      </p>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @users %>
