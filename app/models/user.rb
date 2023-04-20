@@ -6,5 +6,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :postal_code, length: { is: 7 }, numericality: { only_integer: true }
+  validates :postal_code, length: { is: 7 }, numericality: { only_integer: true }, allow_blank: true
 end
