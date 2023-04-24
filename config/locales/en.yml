@@ -10,18 +10,18 @@ en:
         picture: Picture
   views:
     head:
-      books: Books
-      new: New book
-      edit: Editing book
+      index: "%{name}"
+      new: "New %{name}"
+      edit: "Editing %{name}"
     nav:
-      new: New book
-      back: Back to books
-      edit: Edit this book
-      destroy: Destroy this book
-      show: Show this book
+      new: "New %{name}"
+      back: "Back to %{name}"
+      edit: "Edit this %{name}"
+      destroy: "Destroy this %{name}"
+      show: "Show this %{name}"
   controllers:
     book:
       notice:
-        create: Book was successfully created.
-        update: Book was successfully updated.
-        destroy: Book was successfully destroyed.
+        create: "%{name} was successfully created."
+        update: "%{name} was successfully updated."
+        destroy: "%{name} was successfully destroyed."

@@ -10,23 +10,22 @@ ja:
         picture: 画像
   views:
     head:
-      books: 本の一覧
-      new: 本の作成
-      edit: 本の編集
+      index: "%{name}の一覧"
+      new: "%{name}の作成"
+      edit: "%{name}の編集"
     nav:
-      new: 本を作成
-      back: 本の一覧に戻る
-      edit: この本を編集
-      destroy: この本を削除
-      show: この本を表示
+      new: "%{name}を作成"
+      back: "%{name}の一覧に戻る"
+      edit: "この%{name}を編集"
+      destroy: "この%{name}を削除"
+      show: "この%{name}を表示"
   controllers:
     book:
       notice:
-        create: 本の作成に成功しました。
-        update: 本の更新に成功しました。
-        destroy: 本の削除に成功しました。
+        create: "%{name}の作成に成功しました。"
+        update: "%{name}の更新に成功しました。"
+        destroy: "%{name}の削除に成功しました。"
   helpers:
     submit:
-      create: 本を登録する
-      update: 本を更新する
-
+      create: "%{model}を登録する"
+      update: "%{model}を更新する"
