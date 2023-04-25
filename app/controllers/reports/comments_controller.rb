@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Reports::CommentsController < ApplicationController
+  before_action :ensure_correct_user, only: :destroy
+
   # POST /reports/1/comments
   def create
     @report = Report.find(params[:report_id])
@@ -20,5 +22,12 @@ class Reports::CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content)
+  end
+
+  def ensure_correct_user
+    @comment = Comment.find(params[:id])
+    return if @comment.user == current_user
+
+    redirect_to root_url
   end
 end
