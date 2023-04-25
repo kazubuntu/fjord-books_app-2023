@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'books#index'
   resources :books do
-    resources :comments, only: :create, module: :books
+    resources :comments, only: %i[create destroy], module: :books
   end
   resources :users, only: %i(index show)
 end

@@ -1,0 +1,5 @@
+<p>
+  <strong><%= Comment.human_attribute_name(:content) %>:</strong>
+  <%= comment.content %>
+</p>
+<%= button_to '削除', book_comment_path(book, comment), method: :delete %>

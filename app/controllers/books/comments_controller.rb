@@ -10,6 +10,14 @@ class Books::CommentsController < ApplicationController
     redirect_to book_url(@book)
   end
 
+  # DELETE /books/1/comments/1
+  def destroy
+    book = Book.find(params[:book_id])
+    comment = Comment.find(params[:id])
+    comment.destroy
+    redirect_to book_url(book)
+  end
+
   def comment_params
     params.require(:comment).permit(:content)
   end
