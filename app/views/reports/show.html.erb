@@ -14,3 +14,11 @@
     <%= button_to t('views.common.destroy', name: Report.model_name.human.downcase), @report, method: :delete %>
   <% end %>
 </nav>
+
+<h2><%= t('views.common.title_new', name: Comment.model_name.human) %></h2>
+<%= render 'reports/comments/form', report: @report, comment: @comment %>
+
+<h2><%= t('views.common.title_index', name: Comment.model_name.human) %></h2>
+<% @comments.each do |comment| %>
+  <%= render 'reports/comments/comment', comment: %>
+<% end %>
