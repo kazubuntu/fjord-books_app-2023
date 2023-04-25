@@ -3,6 +3,16 @@
   <%= comment.content %>
 </p>
 
+<p>
+  <strong><%= User.model_name.human %>:</strong>
+  <%= comment.user.name.blank? ? comment.user.email : comment.user.name %>
+</p>
+
+<p>
+  <strong><%= Comment.human_attribute_name(:created_at) %>:</strong>
+  <%= l comment.created_at, format: :long %>
+</p>
+
 <% if comment.user == current_user %>
   <%= button_to '削除', report_comment_path(report, comment), method: :delete %>
 <% end %>

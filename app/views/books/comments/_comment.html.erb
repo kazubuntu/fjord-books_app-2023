@@ -3,6 +3,16 @@
   <%= comment.content %>
 </p>
 
+<p>
+  <strong><%= User.model_name.human %>:</strong>
+  <%= current_user_name(comment.user) %>
+</p>
+
+<p>
+  <strong><%= Comment.human_attribute_name(:created_at) %>:</strong>
+  <%= l comment.created_at, format: :long %>
+</p>
+
 <% if comment.user == current_user %>
   <%= button_to '削除', book_comment_path(book, comment), method: :delete %>
 <% end %>
