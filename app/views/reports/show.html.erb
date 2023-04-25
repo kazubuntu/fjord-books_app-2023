@@ -20,5 +20,5 @@
 
 <h2><%= t('views.common.title_index', name: Comment.model_name.human) %></h2>
 <% @comments.each do |comment| %>
-  <%= render 'reports/comments/comment', comment: %>
+  <%= render 'reports/comments/comment', report: @report, comment: comment %>
 <% end %>

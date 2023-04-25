@@ -10,6 +10,14 @@ class Reports::CommentsController < ApplicationController
     redirect_to report_url(@report)
   end
 
+  # DELETE /reports/1/comments/1
+  def destroy
+    report = Report.find(params[:report_id])
+    comment = Comment.find(params[:id])
+    comment.destroy
+    redirect_to report_url(report)
+  end
+
   def comment_params
     params.require(:comment).permit(:content)
   end

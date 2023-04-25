@@ -2,3 +2,4 @@
   <strong><%= Comment.human_attribute_name(:content) %>:</strong>
   <%= comment.content %>
 </p>
+<%= button_to '削除', report_comment_path(report, comment), method: :delete %>
