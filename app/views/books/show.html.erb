@@ -12,9 +12,9 @@
 </nav>
 
 <h2><%= t('views.common.title_new', name: Comment.model_name.human) %></h2>
-<%= render 'books/comments/form', book: @book, comment: @comment %>
+<%= render 'comments/form', commentable: @book, comment: @comment %>
 
 <h2><%= t('views.common.title_index', name: Comment.model_name.human) %></h2>
 <% @comments.each do |comment| %>
-  <%= render 'books/comments/comment', book: @book, comment: comment %>
+  <%= render 'comments/comment', commentable: @book, comment: comment %>
 <% end %>

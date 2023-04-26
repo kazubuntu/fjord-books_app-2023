@@ -16,9 +16,9 @@
 </nav>
 
 <h2><%= t('views.common.title_new', name: Comment.model_name.human) %></h2>
-<%= render 'reports/comments/form', report: @report, comment: @comment %>
+<%= render 'comments/form', commentable: @report, comment: @comment %>
 
 <h2><%= t('views.common.title_index', name: Comment.model_name.human) %></h2>
 <% @comments.each do |comment| %>
-  <%= render 'reports/comments/comment', report: @report, comment: comment %>
+  <%= render 'comments/comment', commentable: @report, comment: comment %>
 <% end %>

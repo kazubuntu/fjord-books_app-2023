@@ -14,5 +14,5 @@
 </p>
 
 <% if comment.user == current_user %>
-  <%= button_to '削除', book_comment_path(book, comment), method: :delete %>
+  <%= button_to '削除', polymorphic_path([commentable, comment]), method: :delete %>
 <% end %>
