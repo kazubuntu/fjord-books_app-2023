@@ -1,24 +1,9 @@
 # frozen_string_literal: true
 
-class Books::CommentsController < ApplicationController
-  # POST /books/1/comments
-  def create
-    @book = Book.find(params[:book_id])
-    @comment = @book.comments.build(comment_params)
-    @comment.user = current_user
-    @comment.save
-    redirect_to book_url(@book)
-  end
+class Books::CommentsController < CommentsController
+  before_action :set_commentable
 
-  # DELETE /books/1/comments/1
-  def destroy
-    book = Book.find(params[:book_id])
-    comment = Comment.find(params[:id])
-    comment.destroy
-    redirect_to book_url(book)
-  end
-
-  def comment_params
-    params.require(:comment).permit(:content)
+  def set_commentable
+    @commentable = Book.find(params[:book_id])
   end
 end
