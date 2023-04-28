@@ -4,6 +4,10 @@
   <%= render @report %>
 </div>
 
+  <% @report.mentioned_reports.each do |mentioned_report| %>
+    <%= link_to mentioned_report.title, mentioned_report %>
+  <% end %>
+
 <%= render 'shared/comments', commentable: @report %>
 
 <nav class="page-nav">
