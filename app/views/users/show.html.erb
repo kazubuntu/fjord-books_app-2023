@@ -1,0 +1,10 @@
+<div class="show-item">
+  <%= render @user %>
+</div>
+
+<nav class="page-nav">
+  <% if @user == current_user %>
+    <%= link_to t('views.common.edit', name: User.model_name.human), edit_user_registration_path %> |
+  <% end %>
+  <%= link_to t('views.common.back', name: User.model_name.human), users_path %>
+</nav>
