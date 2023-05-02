@@ -6,8 +6,12 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.build(comment_params)
     @comment.user = current_user
-    @comment.save!
-    redirect_to @commentable
+    if @comment.save
+      redirect_to @commentable
+    else
+      @comments = @commentable.comments
+      render_commentable
+    end
   end
 
   # DELETE /books/1/comments/1

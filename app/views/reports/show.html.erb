@@ -1,7 +1,7 @@
 <h1><%= t('views.common.title_show', name: Report.model_name.human) %></h1>
 
 <div class="show-item">
-  <%= render @report %>
+  <%= render 'reports/report', report: @report %>
 </div>
 
 <nav class="page-nav">
@@ -20,5 +20,5 @@
 
 <h2><%= t('views.common.title_index', name: Comment.model_name.human) %></h2>
 <% @comments.each do |comment| %>
-  <%= render 'comments/comment', commentable: @report, comment: comment %>
+  <%= render('comments/comment', commentable: @report, comment: comment) unless comment.id.nil? %>
 <% end %>
