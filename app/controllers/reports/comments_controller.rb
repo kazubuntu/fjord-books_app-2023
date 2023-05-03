@@ -9,6 +9,6 @@ class Reports::CommentsController < CommentsController
 
   def render_commentable
     @report = @commentable
-    render 'reports/show'
+    render 'reports/show', status: :unprocessable_entity
   end
 end

@@ -9,6 +9,6 @@ class Books::CommentsController < CommentsController
 
   def render_commentable
     @book = @commentable
-    render 'books/show'
+    render 'books/show', status: :unprocessable_entity
   end
 end
