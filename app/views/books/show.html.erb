@@ -16,5 +16,5 @@
 
 <h2><%= t('views.common.title_index', name: Comment.model_name.human) %></h2>
 <% @comments.each do |comment| %>
-  <%= render('comments/comment', commentable: @book, comment: comment) unless comment.id.nil? %>
+  <%= render('comments/comment', commentable: @book, comment: comment) if comment.persisted? %>
 <% end %>
