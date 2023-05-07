@@ -204,7 +204,7 @@ ja:
       truncate: '…'
     mention:
       index: "この%{name}は以下の%{name}から言及されています"
-      from: から言及
+      from: "%{name}から言及"
   controllers:
     common:
       notice_create: "%{name}が作成されました。"
