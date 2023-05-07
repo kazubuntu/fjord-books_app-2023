@@ -4,15 +4,17 @@
   <%= render @report %>
 </div>
 
-<p><%= t('views.mention.index', name: Report.model_name.human) unless @mentioned_reports.empty? %></p>
-<ul>
-<% @mentioned_reports.each do |mentioned_report| %>
-  <li>
-    <%= link_to(mentioned_report.title, mentioned_report) %>
-    <%= t 'views.mention.from' %>
-  </li>
-<% end %>
+<% unless @report.mentioned_reports.empty? %>
+  <p><%= t('views.mention.index', name: Report.model_name.human) %></p>
+  <ul>
+  <% @report.mentioned_reports.order(:id).each do |mentioned_report| %>
+    <li>
+      <%= link_to(mentioned_report.title, mentioned_report) %>
+      <%= t 'views.mention.from' %>
+    </li>
+  <% end %>
 </ul>
+<% end %>
 
 <%= render 'shared/comments', commentable: @report %>
 
