@@ -1,7 +1,7 @@
 <h1><%= t('views.common.title_show', name: Book.model_name.human) %></h1>
 
 <div class="show-item">
-  <%= render @book %>
+  <%= render 'books/book', book: @book %>
 </div>
 
 <nav class="page-nav">
@@ -10,3 +10,11 @@
 
   <%= button_to t('views.common.destroy', name: Book.model_name.human.downcase), @book, method: :delete %>
 </nav>
+
+<h2><%= t('views.common.title_new', name: Comment.model_name.human) %></h2>
+<%= render 'comments/form', commentable: @book, comment: @comment %>
+
+<h2><%= t('views.common.title_index', name: Comment.model_name.human) %></h2>
+<% @comments.each do |comment| %>
+  <%= render('comments/comment', commentable: @book, comment: comment) if comment.persisted? %>
+<% end %>
