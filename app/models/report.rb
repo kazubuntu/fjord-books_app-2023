@@ -13,6 +13,9 @@ class Report < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
 
+  after_create :create_mentions
+  after_update :update_mentions
+
   def editable?(target_user)
     user == target_user
   end
@@ -21,53 +24,30 @@ class Report < ApplicationRecord
     created_at.to_date
   end
 
-  def save_with_mentions
-    transaction do
-      save!
-      mentioned_ids = find_mentioned_ids(content)
-      create_mentioning_reports(mentioned_ids)
-    end
-    true
-  rescue ActiveRecord::RecordInvalid
-    add_mention_errors unless @mention.errors.empty?
-    false
+  def create_mentions
+    mentioned_ids = find_mentioned_ids(content)
+    create_mentioning_reports(mentioned_ids)
   end
 
-  def update_with_mentions(report_params)
-    transaction do
-      update!(report_params)
-      old_mentioned_ids = mentioning_report_ids
-      new_mentioned_ids = find_mentioned_ids(content)
-      destroy_mentioning_reports(old_mentioned_ids - new_mentioned_ids)
-      create_mentioning_reports(new_mentioned_ids - old_mentioned_ids)
-    end
-    true
-  rescue ActiveRecord::RecordInvalid
-    add_mention_errors unless @mention.errors.empty?
-    false
+  def update_mentions
+    old_mentioned_ids = mentioning_report_ids
+    new_mentioned_ids = find_mentioned_ids(content)
+    destroy_mentioning_reports(old_mentioned_ids - new_mentioned_ids)
+    create_mentioning_reports(new_mentioned_ids - old_mentioned_ids)
   end
 
   private
 
   def find_mentioned_ids(content)
-    content.scan(%r{http://localhost:3000/reports/(\d+)}).flatten.map(&:to_i).uniq
+    mentioned_ids = content.scan(%r{http://localhost:3000/reports/(\d+)}).flatten.map(&:to_i).uniq
+    mentioned_ids & Report.ids
   end
 
   def create_mentioning_reports(mentioned_ids)
-    mentioned_ids.each do |mentioned_id|
-      @mention = active_relationships.build(mentioned_id:)
-      @mention.save! unless mentioned_id == id
-    end
+    mentioned_ids.each { |mentioned_id| active_relationships.create!(mentioned_id:) unless mentioned_id == id }
   end
 
   def destroy_mentioning_reports(mentioned_ids)
-    mentioned_ids.each do |mentioned_id|
-      @mention = active_relationships.find_by(mentioned_id:)
-      @mention.destroy!
-    end
-  end
-
-  def add_mention_errors
-    @mention.errors.full_messages.each { |error_message| errors.add(:base, error_message) }
+    mentioned_ids.each { |mentioned_id| active_relationships.find_by!(mentioned_id:).destroy! }
   end
 end
