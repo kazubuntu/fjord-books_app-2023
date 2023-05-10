@@ -9,7 +9,7 @@
   <ul>
   <% @report.mentioned_reports.order(:id).each do |mentioned_report| %>
     <li>
-      <%= t('views.mention.from', name: link_to(mentioned_report.title, mentioned_report)).html_safe %>
+      <%= t('views.mention.from_html', name: link_to(mentioned_report.title, mentioned_report)) %>
     </li>
   <% end %>
 </ul>
