@@ -25,29 +25,29 @@ class Report < ApplicationRecord
   end
 
   def create_mentions
-    mentioned_ids = find_mentioned_ids(content)
+    mentioned_ids = find_mentioned_ids_in_content
     create_mentioning_reports(mentioned_ids)
   end
 
   def update_mentions
     old_mentioned_ids = mentioning_report_ids
-    new_mentioned_ids = find_mentioned_ids(content)
+    new_mentioned_ids = find_mentioned_ids_in_content
     destroy_mentioning_reports(old_mentioned_ids - new_mentioned_ids)
     create_mentioning_reports(new_mentioned_ids - old_mentioned_ids)
   end
 
   private
 
-  def find_mentioned_ids(content)
+  def find_mentioned_ids_in_content
     mentioned_ids = content.scan(%r{http://localhost:3000/reports/(\d+)}).flatten.map(&:to_i).uniq
-    mentioned_ids & Report.ids
+    Report.where(id: mentioned_ids).where.not(id:).ids
   end
 
   def create_mentioning_reports(mentioned_ids)
-    mentioned_ids.each { |mentioned_id| active_relationships.create!(mentioned_id:) unless mentioned_id == id }
+    mentioned_ids.each { |mentioned_id| active_relationships.create!(mentioned_id:) }
   end
 
   def destroy_mentioning_reports(mentioned_ids)
-    mentioned_ids.each { |mentioned_id| active_relationships.find_by!(mentioned_id:).destroy! }
+    active_relationships.where(mentioned_id: mentioned_ids).destroy_all
   end
 end
