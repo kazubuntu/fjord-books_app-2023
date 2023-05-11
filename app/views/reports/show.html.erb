@@ -4,6 +4,17 @@
   <%= render @report %>
 </div>
 
+<% unless @report.mentioned_reports.empty? %>
+  <p><%= t('views.mention.index', name: Report.model_name.human) %></p>
+  <ul>
+  <% @report.mentioned_reports.order(:id).each do |mentioned_report| %>
+    <li>
+      <%= t('views.mention.from_html', name: link_to(mentioned_report.title, mentioned_report)) %>
+    </li>
+  <% end %>
+</ul>
+<% end %>
+
 <%= render 'shared/comments', commentable: @report %>
 
 <nav class="page-nav">
