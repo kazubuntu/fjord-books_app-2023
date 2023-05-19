@@ -10,7 +10,7 @@ class ReportsTest < ApplicationSystemTestCase
     login_as(alice, scope: :user)
   end
 
-  test 'flow of report from login to destroying' do
+  test 'flow of report from login to destroying' do # rubocop:disable Metrics/BlockLength
     visit root_url
 
     # 日報の一覧ページへ移動
@@ -25,6 +25,8 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in '内容', with: 'これはテストです。'
     click_on '登録する'
     assert_text '日報が作成されました。'
+    assert_text 'テスト用の日報です'
+    assert_text 'これはテストです。'
 
     click_on '日報の一覧に戻る'
     assert_selector 'h1', text: '日報の一覧'
@@ -40,6 +42,8 @@ class ReportsTest < ApplicationSystemTestCase
     fill_in '内容', with: '無事に更新されました！'
     click_on '更新する'
     assert_text '日報が更新されました。'
+    assert_text '更新しました'
+    assert_text '無事に更新されました！'
 
     click_on '日報の一覧に戻る'
     assert_selector 'h1', text: '日報の一覧'
@@ -50,5 +54,7 @@ class ReportsTest < ApplicationSystemTestCase
 
     click_on 'この日報を削除'
     assert_text '日報が削除されました。'
+    assert_no_text '更新しました'
+    assert_no_text '無事に更新されました！'
   end
 end
