@@ -7,11 +7,9 @@ class UserTest < ActiveSupport::TestCase
     @alice = users(:alice)
   end
 
-  test 'should return email' do
+  test 'name_or_email' do
     assert_equal 'alice@example.com', @alice.name_or_email
-  end
 
-  test 'should return name' do
     @alice.name = 'alice'
     assert_equal 'alice', @alice.name_or_email
   end
